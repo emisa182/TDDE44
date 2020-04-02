@@ -18,5 +18,3 @@ def lunchvärmare(eaters):
         print("Dagens värmare är: {}".format(person))
 
 lunchvärmare(sys.argv[1:])
-
-print("Hej Benjamin")
