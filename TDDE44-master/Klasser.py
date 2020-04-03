@@ -5,34 +5,24 @@ class Pet(object):
 
     def __init__(self, name = ""):
         self.name = name
-        self.kind = kind
+        self.kind = ""
         self.toys = []
 
-    def add_toy(toy):
-        if toy in toys:
+    def add_toy(self, toy):
+        if toy in self.toys:
             pass
         else:
-            toys.append(toy)
-
-#    def __str__(self):
-
-
-
-
-
-
-class Contact(object):
-
-    def __init__(self, name):
-        self.name = name
-        self.phone_num = ""
+            self.toys.append(toy)
 
     def __str__(self):
-        citation = "name: {} \nphone number: {}"
-        return citation.format(self.name, self.phone_num)
-
-    #def __str__(self):
-        #return "{}, {}".format(self.name, self.phone_num)
-
-    def append_to_name(self, string_to_append):
-        self.name = self.name + string_to_append
+        toy_line = ""
+        if self.toys == []:
+            frase = "{} är en {} som inte har några leksaker."
+        else:
+            frase = "{} är en {} som har följande leksaker: {}"
+            for element in self.toys:
+                if element == self.toys[-1]:
+                    toy_line = toy_line + element + "."
+                else:
+                    toy_line = toy_line + element + ", "
+        return frase.format(self.name, self.kind, toy_line)
