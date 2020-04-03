@@ -16,6 +16,7 @@ class Contact(object):
     def append_to_name(self, string_to_append):
         self.name = self.name + string_to_append
 
+
 c1 = Contact("Emil")
 c2 = Contact("Benno")
 c3 = Contact("Kalle")
