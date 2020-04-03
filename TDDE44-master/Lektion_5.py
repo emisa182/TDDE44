@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import Klasser.Contact
 
-#Contact = Klasser.Contact
+# Contact = Klasser.Contact
 
 
 c1 = Contact("Emil")
