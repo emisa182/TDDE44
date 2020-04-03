@@ -1,20 +1,7 @@
 #!/usr/bin/env python3
+import Klasser.Contact
 
-class Contact(object):
-
-    def __init__(self, name):
-        self.name = name
-        self.phone_num = ""
-
-    def __str__(self):
-        citation = "name: {} \nphone number: {}"
-        return citation.format(self.name, self.phone_num)
-
-    #def __str__(self):
-        #return "{}, {}".format(self.name, self.phone_num)
-
-    def append_to_name(self, string_to_append):
-        self.name = self.name + string_to_append
+#Contact = Klasser.Contact
 
 c1 = Contact("Emil")
 c2 = Contact("Benno")
