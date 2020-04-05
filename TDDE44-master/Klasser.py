@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 
+
 class Pet(object):
 
-
-    def __init__(self, name = ""):
+    def __init__(self, name=""):
         self.name = name
         self.kind = ""
         self.toys = []
@@ -28,12 +28,11 @@ class Pet(object):
         return frase.format(self.name, self.kind, toy_line)
 
 
-
 class Vector2D(object):
 
-    def __init__(self, x = 0, y = 0):
-        self.x = x  #float
-        self.y = y  #float
+    def __init__(self, x=0, y=0):
+        self.x = x  # float
+        self.y = y  # float
 
     def get_length(self):
         return ((self.x**2 + self.y**2)**(1/2))
