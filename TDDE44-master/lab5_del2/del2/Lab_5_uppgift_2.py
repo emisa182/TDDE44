@@ -3,7 +3,6 @@
 import tkinter
 import lab5
 import math
-LayoutTester = lab5.LayoutTester
 
 
 def row_layout(squares, frame_height, frame_width):
@@ -15,26 +14,28 @@ def row_layout(squares, frame_height, frame_width):
     frame_width  -- Bredden (int) på den Frame som fyrkanterna ligger i
     """
 
-    # Slumpa ut positioner för alla fyrkanter utan att de hamnar utanför framen
+    ypos = 0
+    xpos = 0
+
     for square in squares:
 
         square_size = square.winfo_width()
+
         square_amount_x = math.floor(frame_width/square_size)
-        x_col = frame_width / (square_amount_x + 1)
+        x_col = (frame_width - square_size*square_amount_x) / (square_amount_x + 1)
 
         square_amount_y = math.floor(frame_height/square_size)
-        y_row = frame_height / (square_amount_y + 1)
-        ypos += y_row
-
-        for i in range(square_amount_x):
-            xpos += x_col
-            square.place(x=xpos, y=ypos)
+        y_row = (frame_height - square_size*square_amount_y) / (square_amount_y + 1)
 
 
+        if (xpos  + x_col*square_amount_x + square_size) < (frame_width - x_col*square_amount_x - square_size):
+            xpos += x_col*square_amount_x + square_size
 
-        # xpos = random.randint(0, frame_width - square_size)
-        # ypos = random.randint(0, frame_height - square_size)
+        else:
+            xpos = x_col*square_amount_x + square_size
+            ypos += y_row*square_amount_y + square_size
 
+        square.place(x=(xpos), y=(ypos+square_size))
 
 
 if __name__ == "__main__":
