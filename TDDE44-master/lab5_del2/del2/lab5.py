@@ -80,8 +80,8 @@ class LayoutTester(object):
 
         # Frame att lägga kvadraterna i
         self.square_frame = Frame(self.root,
-                                  #height=self.squares_frame_height,
-                                  #width=self.squares_frame_width,
+                                  # height=self.squares_frame_height,
+                                  # width=self.squares_frame_width,
                                   bg="#eef")
         if self.debug:
             self.square_frame.bind("<Configure>", self.frame_changed)
@@ -105,7 +105,7 @@ class LayoutTester(object):
         """Skapa kontrollpanel för inställningar."""
         self.create_size_panel()
         self.create_num_squares_panel()
-        #self.create_start_pos_panel()
+        # self.create_start_pos_panel()
         self.create_run_quit_panel()
 
     def create_size_panel(self):
@@ -167,7 +167,7 @@ class LayoutTester(object):
             # konververa hsv-färg till rgb-trippel (heltal 0-255)
             rgb = [int(val * 255) for val in hsv_to_rgb(hue_value, 0.75, 0.70)]
             # konvertera rgb-trippel till sträng
-            bg_color ="#{:x}{:x}{:x}".format(rgb[0], rgb[1], rgb[2])
+            bg_color = "#{:x}{:x}{:x}".format(rgb[0], rgb[1], rgb[2])
 
             # textfärg
             fg_color = "#fff"
