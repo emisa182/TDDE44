@@ -26,7 +26,7 @@ def row_layout(squares, frame_height, frame_width):
         y_row = frame_height / (square_amount_y + 1)
         ypos += y_row
 
-        for i in range(square_amount_x)
+        for i in range(square_amount_x):
             xpos += x_col
             square.place(x=xpos, y=ypos)
 
