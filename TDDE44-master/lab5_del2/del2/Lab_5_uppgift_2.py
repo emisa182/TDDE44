@@ -21,21 +21,17 @@ def row_layout(squares, frame_height, frame_width):
 
         square_size = square.winfo_width()
 
-        square_amount_x = math.floor(frame_width/square_size)
-        x_col = (frame_width-square_size*square_amount_x)/(square_amount_x+1)
+        square.place(x=(xpos), y=(ypos))
 
-        square_amount_y = math.floor(frame_height/square_size)
-        y_row = (frame_height-square_size*square_amount_y)/(square_amount_y+1)
+        if (xpos + 10 + square_size) < (frame_width - 10 - square_size):
+            xpos += 10 + square_size
 
-        if (xpos + x_col*square_amount_x + square_size) < (frame_width - x_col*square_amount_x - square_size):
-            xpos += x_col*square_amount_x + square_size
+        elif (ypos + square_size) < (frame_height-10 - square_size):
+            xpos = 0
+            ypos += 10 + square_size
 
         else:
-            xpos = x_col*square_amount_x + square_size
-            ypos += y_row*square_amount_y + square_size
-
-        square.place(x=(xpos), y=(ypos+square_size))
-
+            break
 
 if __name__ == "__main__":
     layout_tester = lab5.LayoutTester(row_layout)
