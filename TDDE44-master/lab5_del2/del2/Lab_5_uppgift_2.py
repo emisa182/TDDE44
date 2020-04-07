@@ -19,7 +19,7 @@ def row_layout(squares, frame_height, frame_width):
 
     for square in squares:
 
-        square_size = square.winfo_width()
+        square_size = square.winfo_width() #vill vi verkligen detta? 
 
         square_amount_x = math.floor(frame_width/square_size)
         x_col = (frame_width-square_size*square_amount_x)/(square_amount_x+1)
