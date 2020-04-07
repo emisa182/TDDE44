@@ -27,7 +27,7 @@ def row_layout(squares, frame_height, frame_width):
         square_amount_y = math.floor(frame_height/square_size)
         y_row = (frame_height-square_size*square_amount_y)/(square_amount_y+1)
 
-        if (ypos + y_row*square_amount_y + square_size) > (frame_height - y_row*square_amount_y - square_size):
+        if (ypos + y_row*square_amount_y + square_size) < (frame_height - y_row*square_amount_y - square_size):
             pass
 
         elif (xpos + x_col*square_amount_x + square_size) < (frame_width - x_col*square_amount_x - square_size):
