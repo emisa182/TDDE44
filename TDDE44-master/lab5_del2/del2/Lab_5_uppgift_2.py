@@ -6,6 +6,7 @@ import math
 
 
 def row_layout(squares, frame_height, frame_width):
+
     """Placera ut fyrkanterna i listan squares i rader.
 
     Argument:
@@ -32,6 +33,7 @@ def row_layout(squares, frame_height, frame_width):
 
         else:
             break
+
 
 if __name__ == "__main__":
     layout_tester = lab5.LayoutTester(row_layout)
