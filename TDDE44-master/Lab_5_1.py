@@ -2,7 +2,7 @@
 import Klasser
 Pet = Klasser.Pet
 
-"""Tilldelar variabler ex. namn, klass m.m. och kallar på Pet genom print."""
+"""Tilldelar variabler t.ex. namn, typ m.m. och kallar på Pet genom print."""
 
 dog = Pet()
 cat = Pet("Sylvester")
