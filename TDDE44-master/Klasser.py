@@ -47,8 +47,7 @@ class Vector2D(object):
         return new_vector
 
     def is_longer_than(self, v1):
-        return self.get_length() < v1.get_length():
-
+        return self.get_length() < v1.get_length()
 
     def create_unit_vector(self):
         new_vector = Vector2D()
