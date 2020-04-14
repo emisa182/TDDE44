@@ -9,9 +9,7 @@ class Pet(object):
         self.toys = []
 
     def add_toy(self, toy):
-        if toy in self.toys:
-            pass
-        else:
+        if toy not in self.toys:
             self.toys.append(toy)
 
     def __str__(self):
@@ -49,10 +47,8 @@ class Vector2D(object):
         return new_vector
 
     def is_longer_than(self, v1):
-        if self.get_length() < v1.get_length():
-            return False
-        else:
-            return True
+        return self.get_length() < v1.get_length():
+
 
     def create_unit_vector(self):
         new_vector = Vector2D()
