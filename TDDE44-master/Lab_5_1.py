@@ -2,19 +2,19 @@
 import Klasser
 Pet = Klasser.Pet
 
+
 """Tilldelar variabler t.ex. namn, typ m.m. och kallar på Pet genom print."""
 
 dog = Pet()
-cat = Pet("Sylvester")
-illern = Pet("Göran")
-cat.kind = "tiger"
-illern.kind = "iller"
-dog.kind = "varg"
-cat.add_toy("garn")
-cat.add_toy("boll")
-cat.add_toy("mus")
-illern.add_toy("vodka")
+djur = [Pet("Sylvester"), Pet("Göran")]
+djur[0].kind = "katt"
+djur[1].kind = "iller"
+dog.kind = "hund"
+djur[0].add_toy("garn")
+djur[0].add_toy("boll")
+djur[0].add_toy("mus")
+djur[1].add_toy("vodka")
 
+print(djur[0])
 print(dog)
-print(cat)
-print(illern)
+print(djur[1])
