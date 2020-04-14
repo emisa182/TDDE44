@@ -31,8 +31,8 @@ class Pet(object):
 class Vector2D(object):
 
     def __init__(self, x=0, y=0):
-        self.x = x  # float
-        self.y = y  # float
+        self.x = x
+        self.y = y
 
     def get_length(self):
         return ((self.x**2 + self.y**2)**(1/2))
