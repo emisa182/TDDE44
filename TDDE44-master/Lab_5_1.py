@@ -7,12 +7,17 @@ Pet = Klasser.Pet
 
 dog = Pet()
 djur = [Pet("Sylvester"), Pet("Göran")]
+
+"""Typ"""
 djur[0].kind = "katt"
 djur[1].kind = "iller"
 dog.kind = "hund"
+
+"""Leksaker"""
 djur[0].add_toy("garn")
 djur[0].add_toy("boll")
 djur[0].add_toy("mus")
+djur[1].add_toy("vodka")
 djur[1].add_toy("vodka")
 
 print(djur[0])
