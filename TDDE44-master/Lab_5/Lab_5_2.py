@@ -5,7 +5,7 @@ Vector2D = Klasser.Vector2D
 
 # def test_method():
 
-"""Tilldelning av diverse variabler"""
+"""Tilldelning av vektorvariabler och slumpmässiga element"""
 
 v1 = Vector2D()
 v2 = Vector2D()
@@ -17,7 +17,7 @@ v2.y = random.uniform(-100, 100)
 after = "Resultat: {}"
 
 
-"""Test av Vector2D"""
+"""Test av Vector2D:s delfunktioner"""
 
 print("\n")
 
