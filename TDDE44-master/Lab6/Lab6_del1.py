@@ -5,7 +5,7 @@ class Token(object):
 
 
     def __init__(self, value):
-        self.value = value # ord/skiljetecken
+        self.value = value
 
 
     def __str__(self):
@@ -17,7 +17,7 @@ class Sentence(object):
 
 
     def __init__(self, value):
-        self.value = value # meningar
+        self.value = value
         self.token_list = self.value.split(" ")
 
     def create_token_instance(self):
@@ -34,7 +34,7 @@ class Sentence(object):
 #        return signs, word_counter + 1
 
     def __str__(self):
-        string = "{}"
+        string = "Mening {} innehåller {} ord/skiljetecken ({} antal tecken)"
         return string.format(self.value)
 
 
@@ -42,20 +42,15 @@ class Text(object):
 
 
     def __init__(self, value):
-        self.value = value # hela texten
-        self.sentence_list = self.value.split(".")
+        self.value = value
+
 
     def read_file(self):
         with open(self.value, "r") as file:
             data = file.read()
-        sentences = data.split("\n")
-        print(sentences)
-        return sentences
-
-    def create_sentence_instance(self):
-        for element in self.sentence_list:
-            Sentence(element)
-            print(Sentence(element))
+        sentence_list = data.split("\n")
+        for sentence in sentence_list:
+            Sentence(sentence)
 
 
     def __str__(self):
@@ -68,4 +63,4 @@ class Text(object):
 
 text = Text("lorem.txt")
 text.read_file()
-text.create_sentence_instance()
+#text.create_sentence_instance()
