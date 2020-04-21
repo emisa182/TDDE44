@@ -13,11 +13,6 @@ class Contact(object):
         return frase.format(self.last_name, self.first_name)
 
 
-# c1 = Contact("Ada", "Lovelace")
-# c2 = Contact("Alan", "Turing")
-# print(c1)
-
-
 class ContactList(object):
 
     def __init__(self):
@@ -29,7 +24,7 @@ class ContactList(object):
     def __str__(self):
         string = ""
         for name in self.contacts:
-            if name  == self.contacts[-1]:
+            if name == self.contacts[-1]:
                 string += Contact.__str__(name)
             else:
                 string += Contact.__str__(name) + "\n"
