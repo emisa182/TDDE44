@@ -66,8 +66,6 @@ class Text(object):
             if element == ".":
                 sentence_counter += 1
 
-
-
         return signs, word_counter, sentence_counter
 
 
@@ -77,9 +75,6 @@ class Text(object):
         return str.format(sentences, words, signs)
 
 
-sentence = Sentence("En lång mening , med skiljetecken .")
-
-
-
-text = Text(data)
-print(text)
+if __name__ == "__main__":
+    text = Text(data)
+    print(text)
