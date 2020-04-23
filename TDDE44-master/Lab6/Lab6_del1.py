@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 with open("lorem.txt", "r") as file:
     data = file.read()
 
