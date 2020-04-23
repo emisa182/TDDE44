@@ -16,12 +16,12 @@ class TodoApp(object):
 
     def new_task(self):
         while True:
-            description = input("Beskriv uppgiften:")
-            message = input("Du skrev '{}' är det OK? [j/n]:".format(description))
+            description = input("Beskriv uppgiften: ")
+            message = input("Du skrev '{}' är det OK? [j/n]: ".format(description))
             if message == "j":
                 tasklist = TaskList()
-                task = tasklist.create_task(description) #förhoppningsvis gör den vad den ska
-                self.tasklist.append(task)
+                task, id = tasklist.create_task(description)
+                self.tasklist.append((task, id))
                 break
             else:
                 break
@@ -30,14 +30,13 @@ class TodoApp(object):
     def show_tasks(self):
         for task in self.tasklist:
             print(task)
-        return
 
     def mark_done(self):
         return
 
     def main(self):
         while True:
-            user_input = input("Ange kommando (q = avsluta, ? = hjälp):").lower()
+            user_input = input("Ange kommando (q = avsluta, ? = hjälp): ").lower()
             if user_input == "q":
                 break
             try:
@@ -57,7 +56,7 @@ class TaskList(object):
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
-        return task.description
+        return task.description, task.task_id
 
     def mark_done(self, task_id):
         task = Task(task_id)
