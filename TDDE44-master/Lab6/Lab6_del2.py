@@ -17,7 +17,6 @@ class TodoApp(object):
     def new_task(self):
         while True:
             description = input("Beskriv uppgiften:")
-            print(type(description))
             message = input("Du skrev '{}' är det OK? [j/n]:".format(description))
             if message == "j":
                 tasklist = TaskList()
