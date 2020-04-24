@@ -19,9 +19,11 @@ class TodoApp(object):
             description = input("Beskriv uppgiften: ")
             message = input("Du skrev '{}' är det OK? [j/n]: ".format(description))
             if message == "j":
-                tasklist = TaskList()
+                tasklist = TaskList(len(self.tasklist))
                 task, id = tasklist.create_task(description)
                 self.tasklist.append((task, id))
+                tasklist.task_counter += 1
+                return tasklist.task_counter
                 break
             else:
                 break
@@ -49,10 +51,8 @@ class TaskList(object):
 
     def __init__(self, task_counter = 0):
         self.task_counter = task_counter
-        return
 
     def create_task(self, description):
-        self.task_counter += 1
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
@@ -69,9 +69,6 @@ class Task(object):
         self.task_id = task_id          # int
         self.description = ""           # str
         self.done = False               # boolean
-
-        return
-
 
     def mark_done(self):
         self.done = True
