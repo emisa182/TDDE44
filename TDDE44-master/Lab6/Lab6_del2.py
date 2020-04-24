@@ -20,10 +20,8 @@ class TodoApp(object):
             message = input("Du skrev '{}' är det OK? [j/n]: ".format(description))
             if message == "j":
                 tasklist = TaskList(len(self.tasklist))
-                task, id = tasklist.create_task(description)
-                self.tasklist.append((task, id))
-                tasklist.task_counter += 1
-                return tasklist.task_counter
+                task = tasklist.create_task(description)
+                self.tasklist.append((task))
                 break
             else:
                 break
@@ -31,10 +29,25 @@ class TodoApp(object):
 
     def show_tasks(self):
         for task in self.tasklist:
-            print(task)
+            frase = "{}. [{}] {}. "
+            print(frase.format(task[1], task[2], task[0]))
+
 
     def mark_done(self):
-        return
+        while True:
+            id = input("Vilken uppgift ska markeras som klar? ")
+            if id == "q":
+                break
+            try:
+                if int(id) < len(self.tasklist):
+                    task = self.tasklist[int(id)]
+                    task[2] = "X"
+                    break
+                else:
+                    print("Finns ej i listan.")
+            except ValueError:
+                print("Du måste skriva en siffra.")
+
 
     def main(self):
         while True:
@@ -56,7 +69,7 @@ class TaskList(object):
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
-        return task.description, task.task_id
+        return [task.description, task.task_id, ""]
 
     def mark_done(self, task_id):
         task = Task(task_id)
