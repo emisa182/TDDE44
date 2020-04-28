@@ -5,17 +5,24 @@ with open("lorem.txt", "r") as file:
 
 
 class Text(object):
-    """Tittar på hela texten."""
+    """Titta på hela texten.
+    
+    value -- text
+    sentence_list -- lista med alla meningar i texten som varsitt element
+    """
 
     def __init__(self, value):
+        """Deklarera instansvariabler."""
         self.value = value
         self.sentence_list = self.value.split("\n")
         del self.sentence_list[-1]              # tar bort överflödigt element.
 
     def get_num_sentences(self):
+        """Få antalet meningar i texten."""
         return len(self.sentence_list)
 
     def get_more(self):
+        """Få antalet ord och tecken i texten."""
         words = 0
         chars = 0
         for sentence in self.sentence_list:
@@ -25,6 +32,7 @@ class Text(object):
         return [words, chars]
 
     def __str__(self):
+        """Skriv ut hur många meningar, ord och tecken texten består av."""
         list = self.get_more()
         sentences = self.get_num_sentences()
         str = "Texten innehåller {} meningar.\nTexten innehåller {} " \
@@ -33,9 +41,14 @@ class Text(object):
 
 
 class Sentence(object):
-    """Tittar på meningar."""
+    """Titta på meningar.
+
+    value -- en mening
+    token_list -- lista med orden i meningen som element
+    """
 
     def __init__(self, value):
+        """Deklarera instansvariabler."""
         self.value = value
         self.token_list = self.value.split(" ")
 
@@ -53,7 +66,10 @@ class Sentence(object):
 
 
 class Token(object):
-    """Tar in ett ord eller skiljetecken och skapar instansen value."""
+    """Tar in ett ord eller skiljetecken och skapar instansen value.
+
+    value -- ett ord
+    """
 
     def __init__(self, value):
         """Definiera value."""
