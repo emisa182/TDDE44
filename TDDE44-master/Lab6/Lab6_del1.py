@@ -7,8 +7,8 @@ with open("lorem.txt", "r") as file:
 class Text(object):
     """Titta på hela texten.
 
-    value -- text
-    sentence_list -- lista med alla meningar i texten som varsitt element
+    value -- Text
+    sentence_list -- Lista med alla meningar i texten som varsitt element
     """
 
     def __init__(self, value):
@@ -33,18 +33,18 @@ class Text(object):
 
     def __str__(self):
         """Skriv ut hur många meningar, ord och tecken texten består av."""
-        list = self.get_more()
+        values = self.get_more()
         sentences = self.get_num_sentences()
-        str = "Texten innehåller {} meningar.\nTexten innehåller {} " \
+        skriv = "Texten innehåller {} meningar.\nTexten innehåller {} " \
             "ord/skiljetecken.\nTexten innehåller {} tecken."
-        return str.format(sentences, list[0], list[1])
+        return skriv.format(sentences, values[0], values[1])
 
 
 class Sentence(object):
     """Titta på meningar.
 
-    value -- en mening
-    token_list -- lista med orden i meningen som element
+    value -- En mening
+    token_list -- Lista med orden i meningen som element
     """
 
     def __init__(self, value):
@@ -68,7 +68,7 @@ class Sentence(object):
 class Token(object):
     """Tar in ett ord eller skiljetecken och skapar instansen value.
 
-    value -- ett ord
+    value -- Ett ord eller skiljetecken
     """
 
     def __init__(self, value):
