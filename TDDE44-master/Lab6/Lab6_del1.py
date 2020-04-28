@@ -6,7 +6,7 @@ with open("lorem.txt", "r") as file:
 
 class Text(object):
     """Titta på hela texten.
-    
+
     value -- text
     sentence_list -- lista med alla meningar i texten som varsitt element
     """
