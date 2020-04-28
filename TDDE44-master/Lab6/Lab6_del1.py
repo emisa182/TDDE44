@@ -3,12 +3,11 @@
 with open("lorem.txt", "r") as file:
     data = file.read()
 
-class Token(object):
 
+class Token(object):
 
     def __init__(self, value):
         self.value = value
-
 
     def __str__(self):
         word = "{}"
@@ -17,11 +16,9 @@ class Token(object):
 
 class Sentence(object):
 
-
     def __init__(self, value):
         self.value = value
         self.token_list = self.value.split(" ")
-
 
     def create_Token_instance(self):
         len_element = 0
@@ -30,7 +27,6 @@ class Sentence(object):
             len_element += len(element)
         print(len_element)
 
-
     def __str__(self):
         string = "{}"
         return string.format(self.value)
@@ -38,17 +34,14 @@ class Sentence(object):
 
 class Text(object):
 
-
     def __init__(self, value):
         self.value = value
-
 
     def create_Sentence_instance(self):
         sentence_list = self.value.split("\n")
         for sentence in sentence_list:
             Sentence(sentence)
         return sentence_list
-
 
     def space_finder(self, value):
         word_counter = 0
@@ -68,10 +61,10 @@ class Text(object):
 
         return signs, word_counter, sentence_counter
 
-
     def __str__(self):
         signs, words, sentences = self.space_finder(self.value)
-        str = "Texten innehåller {} meningar.\nTexten innehåller {} ord/skiljetecken.\nTexten innehåller {} tecken."
+        str = "Texten innehåller {} meningar.\nTexten innehåller {} \
+                ord/skiljetecken.\nTexten innehåller {} tecken."
         return str.format(sentences, words, signs)
 
 
