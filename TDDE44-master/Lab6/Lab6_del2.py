@@ -50,7 +50,7 @@ class TodoApp(object):
                 break
             try:
                 if int(task_id) < len(self.tasklist):
-                    task = self.tasklist[int(task_id)]
+                    task = self.tasklist[int(task_id)]  #borde vara instans
                     uppg = TaskList(int(task_id))
                     task[2] = bool(uppg.mark_done(int(task_id)))
                     break
@@ -87,12 +87,12 @@ class TaskList(object):
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
-        return [task.description, task.task_id, task.done]
+        return [task.description, task.task_id, task.done]      # saknar relationen mellan att
 
     def mark_done(self, task_id):
         """Markera uppgiften som färdig."""
         task = Task(task_id)
-        return task.mark_done           # bool()
+        return task.mark_done()           # bool()
 
 
 class Task(object):
