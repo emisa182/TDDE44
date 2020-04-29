@@ -11,9 +11,9 @@ class TodoApp(object):
 
     def __init__(self):
         """Skapa uppgiftslista samt kommandon."""
-        self.tasklist = []
+        self.tasklist = []                                                  # egen
         self.commands = {"?": self.show_commands, "visa": self.show_tasks,
-                         "klar": self.mark_done, "ny": self.new_task}
+                         "klar": self.mark_done, "ny": self.new_task}       # egen
 
     def show_commands(self):
         """Skriv ut möjliga kommandon."""
@@ -37,7 +37,10 @@ class TodoApp(object):
         """Visa uppgifterna."""
         for task in self.tasklist:
             frase = "{}. [{}] {}. "
-            print(frase.format(task[1], task[2], task[0]))
+            if task[2] == True:
+                print(frase.format(task[1], "X", task[0]))
+            else:
+                print(frase.format(task[1], " ", task[0]))
 
     def mark_done(self):
         """Markera uppgiften som klar."""
@@ -48,7 +51,8 @@ class TodoApp(object):
             try:
                 if int(task_id) < len(self.tasklist):
                     task = self.tasklist[int(task_id)]
-                    task[2] = "X"
+                    uppg = TaskList(int(task_id))
+                    task[2] = bool(uppg.mark_done(int(task_id)))
                     break
                 else:
                     print("Finns ej i listan.")
@@ -83,7 +87,7 @@ class TaskList(object):
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
-        return [task.description, task.task_id, ""]
+        return [task.description, task.task_id, task.done]
 
     def mark_done(self, task_id):
         """Markera uppgiften som färdig."""
