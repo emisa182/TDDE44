@@ -22,7 +22,6 @@ class Text(object):
         """Få antalet meningar i texten."""
         return len(self.sentence_list)
 
-
     def __str__(self):
         """Skriv ut hur många meningar, ord och tecken texten består av."""
         token = 0

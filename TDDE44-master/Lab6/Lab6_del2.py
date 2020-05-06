@@ -15,7 +15,6 @@ class TodoApp(object):
         self.commands = {"?": self.show_commands, "visa": self.show_tasks,
                          "klar": self.mark_done, "ny": self.new_task}
 
-
     def show_commands(self):
         """Skriv ut möjliga kommandon."""
         print("Kommandon: ny, visa, klar, ?, q")
@@ -91,10 +90,11 @@ class TaskList(object):
         """Skriv ut och markera som klar om den är klar."""
         for task in self.task_list:
             frase = "{}. [{}] {}. "
-            if task.done == True:
+            if task.done is True:
                 print(frase.format(task.task_id, "X", task.description))
             else:
                 print(frase.format(task.task_id, " ", task.description))
+
 
 class Task(object):
     """Definiera uppgiften som ska läggas till i att-göra-listan.
