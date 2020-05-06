@@ -11,11 +11,12 @@ class TodoApp(object):
 
     def __init__(self):
         """Skapa uppgiftslista samt kommandon."""
-        self.tasklist = []                                                  # egen
+        self.tasklist = TaskList()                                          # egen
         self.commands = {"?": self.show_commands, "visa": self.show_tasks,
                          "klar": self.mark_done, "ny": self.new_task}       # egen
 
-    def show_commands(self):
+
+    def show_commands(self):                                                #bra
         """Skriv ut möjliga kommandon."""
         print("Kommandon: ny, visa, klar, ?, q")
 
@@ -26,21 +27,16 @@ class TodoApp(object):
             message = \
                 input("Du skrev '{}' är det OK? [j/n]: ".format(description))
             if message == "j":
-                tasklist = TaskList(len(self.tasklist))
-                task = tasklist.create_task(description)
-                self.tasklist.append((task))
+                #få tas_counter att räkna upp
+                #tasklist = TaskList(len(self.tasklist))
+                self.tasklist.create_task(description)
                 break
             else:
                 break
 
-    def show_tasks(self):
+    def show_tasks(self):                       #taskcounter räknar ej upp och det markeras inte som klart.
         """Visa uppgifterna."""
-        for task in self.tasklist:
-            frase = "{}. [{}] {}. "
-            if task[2] == True:
-                print(frase.format(task[1], "X", task[0]))
-            else:
-                print(frase.format(task[1], " ", task[0]))
+        self.tasklist.is_it_done()
 
     def mark_done(self):
         """Markera uppgiften som klar."""
@@ -49,17 +45,18 @@ class TodoApp(object):
             if task_id == "q":
                 break
             try:
-                if int(task_id) < len(self.tasklist):
-                    task = self.tasklist[int(task_id)]  #borde vara instans
-                    uppg = TaskList(int(task_id))
-                    task[2] = bool(uppg.mark_done(int(task_id)))
+                if int(task_id) < len(self.tasklist.task_list):
+                    self.tasklist.mark_done(task_id)
+                    #task = self.tasklist[int(task_id)]  #borde vara instans
+                    #uppg = TaskList(int(task_id))
+                    #task[2] = bool(uppg.mark_done(int(task_id)))
                     break
                 else:
                     print("Finns ej i listan.")
             except ValueError:
                 print("Du måste skriva en siffra.")
 
-    def main(self):
+    def main(self):                                                     #bra
         """Kör interaktionsloopen och ta emot kommandon."""
         while True:
             user_input = \
@@ -78,22 +75,31 @@ class TaskList(object):
     task_counter -- En siffra vi kan använda till uppgifts-ID
     """
 
-    def __init__(self, task_counter=0):
+    def __init__(self):
         """Ta in en siffra som kan användas som ID-nummer."""
-        self.task_counter = task_counter
+        self.task_list = []
+        self.task_counter = len(self.task_list)
 
     def create_task(self, description):
         """Skapa en uppgift och ge den ett ID-nummer."""
         task_id = self.task_counter
         task = Task(task_id)
         task.description = description
-        return [task.description, task.task_id, task.done]      # saknar relationen mellan att
+        self.task_list.append(task)
 
     def mark_done(self, task_id):
         """Markera uppgiften som färdig."""
         task = Task(task_id)
-        return task.mark_done()           # bool()
+        task.mark_done()
 
+    def is_it_done(self):
+        for task in self.task_list:
+            frase = "{}. [{}] {}. "
+
+            if task.done == True:
+                print(frase.format(task.task_id, "X", task.description))
+            else:
+                print(frase.format(task.task_id, " ", task.description))
 
 class Task(object):
     """Definiera uppgiften som ska läggas till i att-göra-listan.
@@ -112,7 +118,6 @@ class Task(object):
     def mark_done(self):
         """Markera uppgiften som färdig."""
         self.done = True
-        return self.done
 
 
 if __name__ == "__main__":
