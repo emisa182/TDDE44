@@ -13,7 +13,7 @@ class Text(object):
 
     def __init__(self, value):
         """Deklarera instansvariabler."""
-        self.sentence_list = []       # egen
+        self.sentence_list = []
         split_text = value.split("\n")[0:-1]
         for sentence in split_text:
             self.sentence_list.append(Sentence(sentence))
@@ -57,6 +57,7 @@ class Sentence(object):
         return len(self.token_list)
 
     def get_chars(self):
+        """Räkna antal tecken i en mening."""
         chars = 0
         for element in self.token_list:
             chars += element.get_num_chars()
@@ -72,7 +73,6 @@ class Token(object):
     def __init__(self, value):
         """Definiera value."""
         self.value = value
-        self.chars = []
 
     def get_num_chars(self):
         """Räkna antal tecken i ord."""

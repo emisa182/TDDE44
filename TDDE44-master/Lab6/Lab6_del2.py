@@ -11,12 +11,12 @@ class TodoApp(object):
 
     def __init__(self):
         """Skapa uppgiftslista samt kommandon."""
-        self.tasklist = TaskList()                                          # egen
+        self.tasklist = TaskList()
         self.commands = {"?": self.show_commands, "visa": self.show_tasks,
-                         "klar": self.mark_done, "ny": self.new_task}       # egen
+                         "klar": self.mark_done, "ny": self.new_task}
 
 
-    def show_commands(self):                                                #bra
+    def show_commands(self):
         """Skriv ut möjliga kommandon."""
         print("Kommandon: ny, visa, klar, ?, q")
 
@@ -27,14 +27,13 @@ class TodoApp(object):
             message = \
                 input("Du skrev '{}' är det OK? [j/n]: ".format(description))
             if message == "j":
-                #få tas_counter att räkna upp
-                #tasklist = TaskList(len(self.tasklist))
                 self.tasklist.create_task(description)
+                self.tasklist.task_counter += 1
                 break
             else:
                 break
 
-    def show_tasks(self):                       #taskcounter räknar ej upp och det markeras inte som klart.
+    def show_tasks(self):
         """Visa uppgifterna."""
         self.tasklist.is_it_done()
 
@@ -46,17 +45,14 @@ class TodoApp(object):
                 break
             try:
                 if int(task_id) < len(self.tasklist.task_list):
-                    self.tasklist.mark_done(task_id)
-                    #task = self.tasklist[int(task_id)]  #borde vara instans
-                    #uppg = TaskList(int(task_id))
-                    #task[2] = bool(uppg.mark_done(int(task_id)))
+                    self.tasklist.mark_done(int(task_id))
                     break
                 else:
                     print("Finns ej i listan.")
             except ValueError:
                 print("Du måste skriva en siffra.")
 
-    def main(self):                                                     #bra
+    def main(self):
         """Kör interaktionsloopen och ta emot kommandon."""
         while True:
             user_input = \
@@ -78,7 +74,7 @@ class TaskList(object):
     def __init__(self):
         """Ta in en siffra som kan användas som ID-nummer."""
         self.task_list = []
-        self.task_counter = len(self.task_list)
+        self.task_counter = 0
 
     def create_task(self, description):
         """Skapa en uppgift och ge den ett ID-nummer."""
@@ -89,13 +85,12 @@ class TaskList(object):
 
     def mark_done(self, task_id):
         """Markera uppgiften som färdig."""
-        task = Task(task_id)
-        task.mark_done()
+        self.task_list[task_id].mark_done()
 
     def is_it_done(self):
+        """Skriv ut och markera som klar om den är klar."""
         for task in self.task_list:
             frase = "{}. [{}] {}. "
-
             if task.done == True:
                 print(frase.format(task.task_id, "X", task.description))
             else:
@@ -111,9 +106,9 @@ class Task(object):
 
     def __init__(self, task_id):
         """Definiera uppgifts-ID, uppgifts-beskrivning och om den är gjord."""
-        self.task_id = task_id          # int
-        self.description = ""           # str
-        self.done = False               # boolean
+        self.task_id = task_id
+        self.description = ""
+        self.done = False
 
     def mark_done(self):
         """Markera uppgiften som färdig."""
