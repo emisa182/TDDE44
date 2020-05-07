@@ -15,4 +15,3 @@ def minimum_edit_distance(s1,s2):
                                               new_distances[-1])))
         distances = new_distances
     return distances[-1]
-
