@@ -44,7 +44,6 @@ jämföra textfilens ord
 
 """
 import sys
-<<<<<<< HEAD
 from med.py import minimum_edit_distance
 
 
@@ -59,12 +58,6 @@ def load_text(argsys):
         if word == "":
             list.remove(word)
     return list
-=======
-
-def load_text(argsys[1]):
-    text = open(argsys[1])
-
->>>>>>> a8859437f77e9362d4006cd15fa07a8614234e8a
 
 
 def load_freq_data(filepath):
@@ -79,7 +72,6 @@ def load_freq_data(filepath):
         freq_data.append(line.rstrip().split("\t"))
     file.close()
     return freq_data
-<<<<<<< HEAD
 
 
 def word_in_data(word, freq_data):
@@ -120,5 +112,3 @@ def run(argsys1, argsys2):
 
 
 run(sys.argv[1], sys.argv[2])
-=======
->>>>>>> a8859437f77e9362d4006cd15fa07a8614234e8a
