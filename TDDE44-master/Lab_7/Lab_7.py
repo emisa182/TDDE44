@@ -6,7 +6,7 @@ samt spara en rapport med förslag på ordersättningar i en textfil.
 
 Rapporten ska innehålla:
 Namnet på filen som kontrolleras
-Hur lång tid det tar att kontrollera filen 
+Hur lång tid det tar att kontrollera filen
 Alla potentiella fel som upptäcks.
 
 För varje potentiellt fel:
@@ -28,4 +28,37 @@ hur många ord ni slår upp redigeringsavståndet för
 att programmet inte ska ta för lång tid på sig.
 
 Använd modulen funktionen time() i modulen time.
+
+ta in textfil via sys
+
+ta in freqfil i metod
+
+vill bryta ner textfilen ord för ord, byta ut punkter mot blanksteg:
+
+*  ta bort dubbelblanksteg till enkelblanksteg
+* splittar vid blanksteg och tar bort tomma element eller blankstegssträngar
+
+jämföra textfilens ord
+
+
+
 """
+import sys
+
+def load_text(argsys[1]):
+    text = open(argsys[1])
+
+
+
+def load_freq_data(filepath):
+    """Läs in och returnera frekvensdata från filen med sökvägen filepath.
+
+    Returnerar en lista där varje element i listan är en lista med två element
+    med följande struktur: [ord, frekvens]
+    """
+    file = open(filepath)
+    freq_data = []
+    for line in file:
+        freq_data.append(line.rstrip().split("\t"))
+    file.close()
+    return freq_data
