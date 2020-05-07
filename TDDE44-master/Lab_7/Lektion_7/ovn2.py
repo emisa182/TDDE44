@@ -18,9 +18,13 @@ def load_freq_data(filepath):
 def average_len_of_matches(substring, freq_data):
     """Returnera en lista med ord från freq_data som innehåller substring."""
     matches = []
+
     for word_freq in freq_data:
-        if substring in word_freq[0]:
-            matches.append(len(word_freq[0]))
+        if len(matches) <= 5:
+            if substring in word_freq[0]:
+                matches.append(len(word_freq[0]))
+        else:
+            break
     return sum(matches) / len(matches)
 
 

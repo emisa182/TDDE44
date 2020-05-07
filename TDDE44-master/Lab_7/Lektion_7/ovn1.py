@@ -23,17 +23,17 @@ def word_in_data(word, freq_data):
     return False
 
 
-def find_words_in_file(words, filepath):
+def find_words_in_file(words, freq_data):
     """Skriv ut om orden i words finns i filen med sökvägen filepath."""
     for word in words:
-        freq_data = load_freq_data(filepath)
         print("{}: {}".format(word, word_in_data(word, freq_data)))
 
 
 def run():
     words = ["python", "långsam", "snabb", "komplexitet"]
+    freq_data = load_freq_data("webbnyheter2013_stats.tsv")
     start_time = time()
-    find_words_in_file(words, "webbnyheter2013_stats.tsv")
+    find_words_in_file(words, freq_data)
     run_time = time() - start_time
     print("Körtid: {} sekunder.\n".format(run_time))
 
