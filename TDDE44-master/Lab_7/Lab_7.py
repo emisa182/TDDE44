@@ -40,11 +40,24 @@ vill bryta ner textfilen ord för ord, byta ut punkter mot blanksteg:
 
 jämföra textfilens ord
 
-
+En klass vars instanser är de felaktiga orden - SpellingWarning
+En klass som ska känna till alla Spellingwarninginstanser - Report
+En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
 
 """
 import sys
 from med.py import minimum_edit_distance
+
+class Spellingwarning(object):
+    
+
+
+
+
+
+
+
+
 
 
 def load_text(argsys):
@@ -99,7 +112,8 @@ def hitta_ersättningsord(false_list, freq_data):
         for element in freq_data:
             nr = minimum_edit_distance(word, element[0])
             for nyttord in nya_ord                             # vill jämföra med listelementen i nya_ord
-                if nr < nyttord[1]                          # se över gammal labb för frekvensjämföring av flera element
+                if nr < len(nyttord[1]):                          # se över gammal labb för frekvensjämföring av flera element
+
 
 
     [[element, nr], [["och", 13978], 2], [["också", 12896], 1]]
