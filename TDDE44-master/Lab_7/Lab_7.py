@@ -42,87 +42,97 @@ jämföra textfilens ord
 
 En klass vars instanser är de felaktiga orden - SpellingWarning
 En klass som ska känna till alla Spellingwarninginstanser - Report
-En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
+#En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
+
+Nästa gång:
+Vi vill skapa själva rapporten, dvs en textfil.
+Vi vill klocka funktionen.
+***Vill spara  radnumret som felet upptäcks på***
 
 """
 import sys
-from med.py import minimum_edit_distance
-
-class Spellingwarning(object):
-    
+from med import minimum_edit_distance
 
 
+class Readfiles(object):
+
+    def __init__(self, freqpath, textpath):
+        with open(textpath, 'r') as file:
+            text = file.read().replace('\n', " ").lower()
+        text = text.replace(".", "")
+        text = text.replace(",", "")
+        list = text.split(" ")
+        for word in list:
+            if word == "":
+                list.remove(word)
+
+        self.textlist = list
+
+        file = open(freqpath)
+        freq_data = []
+        for line in file:
+            freq_data.append(line.rstrip().split("\t"))
+        file.close()
+        self.freqlist = freq_data
 
 
+class Report(object):
 
-
-
-
-
-
-def load_text(argsys):
-
-    with open(argsys, 'r') as file:
-        text = file.read().replace('\n', " ").lower()
-    text = text.replace(".", "")
-    text = text.replace(",", "")
-    list = text.split(" ")
-    for word in list:
-        if word == "":
-            list.remove(word)
-    return list
-
-
-def load_freq_data(filepath):
-    """Läs in och returnera frekvensdata från filen med sökvägen filepath.
-
-    Returnerar en lista där varje element i listan är en lista med två element
-    med följande struktur: [ord, frekvens]
-    """
-    file = open(filepath)
-    freq_data = []
-    for line in file:
-        freq_data.append(line.rstrip().split("\t"))
-    file.close()
-    return freq_data
-
-
-def word_in_data(word, freq_data):
-    """Returnera True om word finns i freq_data, annars returnera False."""
-    for word_freq in freq_data:
-        if word_freq[0] == word:
-            return True
-    return False
-
-
-def find_words_in_file(words, freq_data):
-    """Skriv ut om orden i words finns i filen med sökvägen filepath."""
-    finns_ej = []
-    for word in words:
-        #print("{}: {}".format(word, word_in_data(word, freq_data)))
-
-        if word_in_data(word, freq_data) == False:
-            finns_ej.append(word)
-    return finns_ej
-
-
-def hitta_ersättningsord(false_list, freq_data):
-    for word in false_list:                         # kanske tar för lång tid?
-        nya_ord = [["error", 404], ["error", 404], ["error", 404]]
-        for element in freq_data:
-            nr = minimum_edit_distance(word, element[0])
-            for nyttord in nya_ord                             # vill jämföra med listelementen i nya_ord
-                if nr < len(nyttord[1]):                          # se över gammal labb för frekvensjämföring av flera element
+    def __init__(self, argsys1, argsys2):
+        self.warninglist = []
+        self.files = Readfiles(argsys1, argsys2)
+        for word in self.files.textlist:
+            if self.word_in_data(word, self.files.freqlist) is False:
+                lista = []
+                instans = SpellingWarning(word, self.files.freqlist)
+                lista.append(instans.word_warning)
+                lista.append(instans.word_alternatives)   #trevlig lista med 3 ord
+                self.warninglist.append(lista)            # [[felstavat, [förslag1, förslag2, förslag3]], [...
+        print(self.warninglist)
 
 
 
-    [[element, nr], [["och", 13978], 2], [["också", 12896], 1]]
-    [[element[0], nr], ["och", 2], ["också", 2]]
+    def word_in_data(self, word, freqlist):
+        """Returnera True om word finns i freq_data, annars returnera False."""
+        for word_freq in freqlist:
+            if word_freq[0] == word:
+                return True
+        return False
 
-def run(argsys1, argsys2):
-    words = load_text(argsys2)
-    freq_data = load_freq_data(argsys1)
-    false_list = find_words_in_file(words, freq_data)
+
+class SpellingWarning(object):
+
+    def __init__(self, word_warning, freqlist):
+        self.word_warning = word_warning
+        self.word_alternatives = self.funktion(freqlist)
+        print(str(self.word_warning))
+
+    def funktion(self, freqlist):
+        word_suggestions = {}
+        for word_alternative in freqlist:
+            if len(word_suggestions) < 3:
+                word_suggestions[word_alternative[0]] = minimum_edit_distance(self.word_warning, word_alternative[0])
+
+            key_max = max(word_suggestions.keys(), key=(lambda k: word_suggestions[k]))       # måste fatta bättre
+
+            if minimum_edit_distance(self.word_warning, word_alternative[0]) < word_suggestions[key_max]:
+                del(word_suggestions[key_max])
+                word_suggestions[word_alternative[0]] = minimum_edit_distance(self.word_warning, word_alternative[0])
+        return list(word_suggestions.keys())
 
 
-run(sys.argv[1], sys.argv[2])
+
+if __name__ == "__main__":
+
+    Report(sys.argv[1], sys.argv[2])
+
+
+#my_dict = {'x':500, 'y':5874, 'z': 560}
+#key_max = max(my_dict.keys(), key=(lambda k: my_dict[k]))
+#key_min = min(my_dict.keys(), key=(lambda k: my_dict[k]))
+
+#print('Maximum Value: ',my_dict[key_max])
+#print('Minimum Value: ',my_dict[key_min])
+
+#Maximum Value:  5874
+#Minimum Value:  500
