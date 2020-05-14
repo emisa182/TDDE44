@@ -45,10 +45,10 @@ En klass som ska känna till alla Spellingwarninginstanser - Report
 #En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
 
 Nästa gång:
-Vi vill skapa själva rapporten, dvs en textfil.
-Vi vill klocka funktionen.
-***Vill spara  radnumret som felet upptäcks på***   [X]
-
+Fixa kommentarer
+gå igenom redovisningslista
+UML-diagram
+Gå igenom exempel på utskrifter så det stämmer överens.
 """
 import sys
 from med import minimum_edit_distance

@@ -1,18 +1,11 @@
 #!/usr/bin/env python3
 
-<<<<<<< HEAD
 """Skapa en interaktiv att-göra-lista.
-=======
-""" Skapa en interaktiv att-göra-lista.
->>>>>>> 489db04c771d6146a5c97d0205933f3fab9ea45a
 
 Vi skapar en interaktiv att-göra-lista som tar emot en begränsad uppsättning
 kommandon. Den kan även skapa nya uppgifter och markera dem som klara.
 """
-<<<<<<< HEAD
 
-=======
->>>>>>> 489db04c771d6146a5c97d0205933f3fab9ea45a
 
 class TodoApp(object):
     """Skapa en att-göra-lista.
