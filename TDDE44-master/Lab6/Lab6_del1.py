@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""Analysera textfil.
+
+Läs in fil och ta fram antal meningingar, antal ord och
+antal tecken i texten.
+"""
+
 with open("lorem.txt", "r") as file:
     data = file.read()
 
