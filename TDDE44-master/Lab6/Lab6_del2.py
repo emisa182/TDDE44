@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""Skapa en interaktiv att-göra-lista.
+
+Vi skapar en interaktiv att-göra-lista som tar emot en begränsad uppsättning
+kommandon. Den kan även skapa nya uppgifter och markera dem som klara.
+"""
+
 
 class TodoApp(object):
     """Skapa en att-göra-lista.
