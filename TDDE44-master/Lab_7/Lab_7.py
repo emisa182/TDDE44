@@ -45,28 +45,33 @@ En klass som ska känna till alla Spellingwarninginstanser - Report
 #En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
 
 Nästa gång:
-Vi vill skapa själva rapporten, dvs en textfil.
-Vi vill klocka funktionen.
-***Vill spara  radnumret som felet upptäcks på***
-
+Fixa kommentarer
+gå igenom redovisningslista
+UML-diagram
+Gå igenom exempel på utskrifter så det stämmer överens.
 """
 import sys
 from med import minimum_edit_distance
+from time import time
 
 
 class Readfiles(object):
 
     def __init__(self, freqpath, textpath):
         with open(textpath, 'r') as file:
-            text = file.read().replace('\n', " ").lower()
-        text = text.replace(".", "")
-        text = text.replace(",", "")
-        list = text.split(" ")
-        for word in list:
-            if word == "":
-                list.remove(word)
+            text = file.read().replace('.', "").lower()
+            text = text.replace(",", "")
+            row_list = text.split("\n")
 
-        self.textlist = list
+#            text = file.read().replace('\n', " ").lower()
+            the_list = []
+            for element in row_list:
+                word_list = element.split(" ")
+                for word in word_list:
+                    if word in ("", " ", "–", "-"):
+                        word_list.remove(word)
+                the_list.append(word_list)
+            self.the_list = the_list
 
         file = open(freqpath)
         freq_data = []
@@ -75,21 +80,36 @@ class Readfiles(object):
         file.close()
         self.freqlist = freq_data
 
+#    def __str__(self, freqpath):
+        frase = "Antal inlästa ord med tillhörande frekvens: {}\n\
+Frekvensdatafil: {}"
+        print(frase.format(len(self.freqlist), freqpath))
+
 
 class Report(object):
 
     def __init__(self, argsys1, argsys2):
+        start_time = time()
+
         self.warninglist = []
         self.files = Readfiles(argsys1, argsys2)
-        for word in self.files.textlist:
-            if self.word_in_data(word, self.files.freqlist) is False:
-                lista = []
-                instans = SpellingWarning(word, self.files.freqlist)
-                lista.append(instans.word_warning)
-                lista.append(instans.word_alternatives)   #trevlig lista med 3 ord
-                self.warninglist.append(lista)            # [[felstavat, [förslag1, förslag2, förslag3]], [...
-        print(self.warninglist)
+        print("Kontrollerar filen: {}".format(argsys2))
+        counter = 0
+        for row in self.files.the_list:
+            counter += 1
+            for word in row:
+                if self.word_in_data(word, self.files.freqlist) is False:
+                    lista = []
+                    instans = SpellingWarning(word, self.files.freqlist)
+                    lista.append(counter)
+                    lista.append(instans.word_warning)
+                    lista.append(instans.word_alternatives)   #trevlig lista med 3 ord
 
+                    self.warninglist.append(lista)            # [[rad, ord, [förslag1, förslag2, förslag3]], [...
+#        print(self.warninglist)
+
+        run_time = time() - start_time
+        self.write_report(argsys2, round(run_time, 2))
 
 
     def word_in_data(self, word, freqlist):
@@ -99,17 +119,24 @@ class Report(object):
                 return True
         return False
 
+    def write_report(self, textfile, run_time):
+        with open("report-" + textfile, "w") as report:
+            print("Rapport sparas som: {}".format(str("report-" + textfile)))
+            report.write("Kontroll av '{}' tog {} sekunder.\n\n".format(textfile, run_time))
+            for element in self.warninglist:
+                report.write("Rad: {}, {}: {}, {}, {}.\n".format(element[0], element[1], element[2][0], element[2][1], element[2][2]))
+
 
 class SpellingWarning(object):
 
     def __init__(self, word_warning, freqlist):
         self.word_warning = word_warning
         self.word_alternatives = self.funktion(freqlist)
-        print(str(self.word_warning))
+
 
     def funktion(self, freqlist):
         word_suggestions = {}
-        for word_alternative in freqlist:
+        for word_alternative in freqlist[0:1000]:
             if len(word_suggestions) < 3:
                 word_suggestions[word_alternative[0]] = minimum_edit_distance(self.word_warning, word_alternative[0])
 
@@ -121,18 +148,17 @@ class SpellingWarning(object):
         return list(word_suggestions.keys())
 
 
-
 if __name__ == "__main__":
+    for argument in sys.argv[2:]:
+        Report(sys.argv[1], argument)
 
-    Report(sys.argv[1], sys.argv[2])
 
+# my_dict = {'x':500, 'y':5874, 'z': 560}
+# key_max = max(my_dict.keys(), key=(lambda k: my_dict[k]))
+# key_min = min(my_dict.keys(), key=(lambda k: my_dict[k]))
 
-#my_dict = {'x':500, 'y':5874, 'z': 560}
-#key_max = max(my_dict.keys(), key=(lambda k: my_dict[k]))
-#key_min = min(my_dict.keys(), key=(lambda k: my_dict[k]))
+# print('Maximum Value: ',my_dict[key_max])
+# print('Minimum Value: ',my_dict[key_min])
 
-#print('Maximum Value: ',my_dict[key_max])
-#print('Minimum Value: ',my_dict[key_min])
-
-#Maximum Value:  5874
-#Minimum Value:  500
+# Maximum Value:  5874
+# Minimum Value:  500

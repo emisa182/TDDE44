@@ -1,0 +1,9 @@
+Kontroll av 'kort1.txt' tog 1.41 sekunder.
+
+Rad: 4, totalförstörelse: totalt, försöker, förstås.
+Rad: 6, notre-dames: tredje, torsdagen, fredagen.
+Rad: 7, gallet: gäller, valet, fallet.
+Rad: 9, huvudtornen: historia, barnen, situationen.
+Rad: 11, klocktornen: stockholms, klockan, oktober.
+Rad: 13, 400: i, att, och.
+Rad: 17, 1100-talskatedralen: konstaterar, tisdagen, torsdagen.
