@@ -20,7 +20,7 @@ class Readfile(object):
     """
 
     def __init__(self, textpath):
-        """Läs in samt modifiera textfil."""
+        """Ta in samt modifiera textfil."""
         with open(textpath, 'r') as file:
             text = file.read().replace('.', "").lower()
             for ch in ['`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#',
