@@ -1,0 +1,16 @@
+Kontroll av 'kort2.txt' tog 1.56 sekunder.
+
+Rad: 2, högga: högre, hög, höga.
+Rad: 2, tråts: tre, trots, årets.
+Rad: 4, totalförstörelse: totalt, försöker, förstås.
+Rad: 6, notre-dames: tredje, torsdagen, fredagen.
+Rad: 6, säjer: säger, ser, saker.
+Rad: 7, gallet: gäller, valet, fallet.
+Rad: 9, huvudtornen: historia, barnen, situationen.
+Rad: 10, redda: enda, leda, rädda.
+Rad: 11, klocktornen: stockholms, klockan, oktober.
+Rad: 13, 400: i, att, och.
+Rad: 14, uppeges: upp, egen, uppger.
+Rad: 16, visadee: visar, vidare, visade.
+Rad: 17, himle: inte, hade, ville.
+Rad: 17, 1100-talskatedralen: konstaterar, tisdagen, torsdagen.

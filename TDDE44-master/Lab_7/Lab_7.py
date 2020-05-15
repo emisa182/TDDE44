@@ -1,69 +1,32 @@
-"""Programmet ska kontrollera stavningen på alla ord i en fil,
-om ett ord saknas i ordfrekvensdatan ska förslag på ord med de kortaste
-redigeringsavstånden som finns med i datan ges. Vi ska även ta tid på hur
-lång tid programmet körs, skriva ut information under körning,
-samt spara en rapport med förslag på ordersättningar i en textfil.
+#!/usr/bin/env python3
+"""Identifiera eventuellt felstavade ord och ge rättstavningsförslag.
 
-Rapporten ska innehålla:
-Namnet på filen som kontrolleras
-Hur lång tid det tar att kontrollera filen
-Alla potentiella fel som upptäcks.
-
-För varje potentiellt fel:
-Radnummer som felet upptäckts på.
-Det potentiellt felstavade ordet.
-Minst tre förslag på korrekta ord.
-
-När skriptet körs ska minst följande information skrivas ut:
-Efter att ordfrekvensdata har laddats, skriv ut information hur många
-    ord som det laddats in frekvenser för, samt från vilken fil som
-    informationen laddats in ifrån.
-När programmet börjar kontrollera en text, skriv namnet på filen som kontrolleras.
-När rapporten sparas, samt namnet på den fil som rapporten sparats i.
-
-        $ python3 erfil.py ordfrekvensdata.tsv filattkontrollera.txt
-
-Att det finns mycket data betyder att ni kan behöva begränsa t.ex.
-hur många ord ni slår upp redigeringsavståndet för
-att programmet inte ska ta för lång tid på sig.
-
-Använd modulen funktionen time() i modulen time.
-
-ta in textfil via sys
-
-ta in freqfil i metod
-
-vill bryta ner textfilen ord för ord, byta ut punkter mot blanksteg:
-
-*  ta bort dubbelblanksteg till enkelblanksteg
-* splittar vid blanksteg och tar bort tomma element eller blankstegssträngar
-
-jämföra textfilens ord
-
-En klass vars instanser är de felaktiga orden - SpellingWarning
-En klass som ska känna till alla Spellingwarninginstanser - Report
-#En klass som sätter ihop en instans av SpellingWarning med 3 "rättstavade" ord.
-
-Nästa gång:
-Fixa kommentarer
-gå igenom redovisningslista
-UML-diagram
-Gå igenom exempel på utskrifter så det stämmer överens.
+Vi läser in en ordfrekvensdatafil samt ett godtyckligt antal textfiler vilka
+kontrolleras mot ordfrekvensdatafilen om ett ord existerar där eller inte.
+Därefter skrivs en rapport som beskriver hur lång tid kontrollen tagit samt
+vilka ord som är eventuella stavfel. Tillsammans med detta så kommer det
+3 förslag på rättstavade ord.
 """
+
 import sys
-from med import minimum_edit_distance
 from time import time
+from med import minimum_edit_distance
 
 
-class Readfiles(object):
+class Readfile(object):
+    """Läs in textfil och ta bort oönskade tecken.
 
-    def __init__(self, freqpath, textpath):
+    the_list -- Nästlad lista vars element är rader  med element av ord.
+    """
+    def __init__(self, textpath):
+        """Läs in samt modifiera textfil."""
+
         with open(textpath, 'r') as file:
             text = file.read().replace('.', "").lower()
-            text = text.replace(",", "")
+            for ch in ['`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#',
+                       '+', ',', '!', '$', '\"', ":", ";", "?"]:
+                text = text.replace(ch, "")
             row_list = text.split("\n")
-
-#            text = file.read().replace('\n', " ").lower()
             the_list = []
             for element in row_list:
                 word_list = element.split(" ")
@@ -73,44 +36,36 @@ class Readfiles(object):
                 the_list.append(word_list)
             self.the_list = the_list
 
-        file = open(freqpath)
-        freq_data = []
-        for line in file:
-            freq_data.append(line.rstrip().split("\t"))
-        file.close()
-        self.freqlist = freq_data
-
-#    def __str__(self, freqpath):
-        frase = "Antal inlästa ord med tillhörande frekvens: {}\n\
-Frekvensdatafil: {}"
-        print(frase.format(len(self.freqlist), freqpath))
-
 
 class Report(object):
+    """Skapa en rapport med de filer som anges.
 
-    def __init__(self, argsys1, argsys2):
-        start_time = time()
+    warninglist --  En lista med eventuellt felstavat ord, rad som ordet
+                    förkommer på i texten samt tre förslag på ersättningsord.
+    text_fil -- Den inlästa textfilen i ett lättarbetat format.
+    """
+
+    def __init__(self, freq_data, argsys2, start_time):
+        """Ta tid på och utför hela rapportskrivningsprocessen, skriv ut."""
 
         self.warninglist = []
-        self.files = Readfiles(argsys1, argsys2)
-        print("Kontrollerar filen: {}".format(argsys2))
+        self.text_file = Readfile(argsys2)
+        print("Kontrollerar filen '{}'...".format(argsys2))
         counter = 0
-        for row in self.files.the_list:
+        for row in self.text_file.the_list:
             counter += 1
             for word in row:
-                if self.word_in_data(word, self.files.freqlist) is False:
+                if self.word_in_data(word, freq_data) is False:
                     lista = []
-                    instans = SpellingWarning(word, self.files.freqlist)
+                    instans = SpellingWarning(word, freq_data)
                     lista.append(counter)
                     lista.append(instans.word_warning)
-                    lista.append(instans.word_alternatives)   #trevlig lista med 3 ord
-
+                    lista.append(instans.word_alternatives)
                     self.warninglist.append(lista)            # [[rad, ord, [förslag1, förslag2, förslag3]], [...
-#        print(self.warninglist)
-
+        print("Antal eventuellt felstavande ord: {}".
+              format(len(self.warninglist)))
         run_time = time() - start_time
         self.write_report(argsys2, round(run_time, 2))
-
 
     def word_in_data(self, word, freqlist):
         """Returnera True om word finns i freq_data, annars returnera False."""
@@ -120,37 +75,67 @@ class Report(object):
         return False
 
     def write_report(self, textfile, run_time):
+        """Skapa textfil och skriv över information."""
+
         with open("report-" + textfile, "w") as report:
-            print("Rapport sparas som: {}".format(str("report-" + textfile)))
-            report.write("Kontroll av '{}' tog {} sekunder.\n\n".format(textfile, run_time))
+            print("Rapport sparas som '{}'".format(str("report-" + textfile)))
+            report.write("Kontroll av '{}' tog {} sekunder.\n\n"
+                         .format(textfile, run_time))
             for element in self.warninglist:
-                report.write("Rad: {}, {}: {}, {}, {}.\n".format(element[0], element[1], element[2][0], element[2][1], element[2][2]))
+                report.write("Rad: {}, {}: {}, {}, {}.\n".format(element[0],
+                             element[1], element[2][0], element[2][1],
+                             element[2][2]))
 
 
 class SpellingWarning(object):
+    """Hitta förslag till eventuellt felstavade ord.
+
+    word_warning -- det eventuellt felstavade ordet.
+    word_alternatives -- lista med förslag till rättstavning av det
+                        felstavade ordet"""
 
     def __init__(self, word_warning, freqlist):
+        """Definiera eventuellt felstavat ord och förslag på rättstavning."""
+
         self.word_warning = word_warning
         self.word_alternatives = self.funktion(freqlist)
 
-
     def funktion(self, freqlist):
+        """Ta fram förslag på rättstavning."""
+
         word_suggestions = {}
         for word_alternative in freqlist[0:1000]:
             if len(word_suggestions) < 3:
-                word_suggestions[word_alternative[0]] = minimum_edit_distance(self.word_warning, word_alternative[0])
+                word_suggestions[word_alternative[0]] \
+                    = minimum_edit_distance(self.word_warning,
+                                            word_alternative[0])
 
-            key_max = max(word_suggestions.keys(), key=(lambda k: word_suggestions[k]))       # måste fatta bättre
+            key_max = max(word_suggestions.keys(),
+                          key=(lambda k: word_suggestions[k]))  # fatta bättre
 
-            if minimum_edit_distance(self.word_warning, word_alternative[0]) < word_suggestions[key_max]:
+            if minimum_edit_distance(self.word_warning, word_alternative[0])\
+                    < word_suggestions[key_max]:
                 del(word_suggestions[key_max])
-                word_suggestions[word_alternative[0]] = minimum_edit_distance(self.word_warning, word_alternative[0])
+                word_suggestions[word_alternative[0]] \
+                    = minimum_edit_distance(self.word_warning,
+                                            word_alternative[0])
         return list(word_suggestions.keys())
 
 
 if __name__ == "__main__":
+    start_time = time()                 # Hur bör tidtagning tas?
+    print("Antal filer att kontrollera: {}".format(len(sys.argv[2:])))
+
+    file = open(sys.argv[1])
+    freq_data = []
+    for line in file:
+        freq_data.append(line.rstrip().split("\t"))
+    file.close()
+    frase = "Läser in frekvensdata från filen '{}'...\n\
+    Frekvensdata för {} ord har laddats in."
+    print(frase.format(sys.argv[1], len(freq_data)))
     for argument in sys.argv[2:]:
-        Report(sys.argv[1], argument)
+        Report(freq_data, argument, start_time)
 
 
 # my_dict = {'x':500, 'y':5874, 'z': 560}

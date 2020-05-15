@@ -1,0 +1,17 @@
+Kontroll av 'lang1.txt' tog 1.39 sekunder.
+
+Rad: 1, 5g-nät: när, annat, genom.
+Rad: 8, 5g-nät: när, annat, genom.
+Rad: 8, 5g-tekniken: gången, tidningen, tanken.
+Rad: 16, säkerhetslag: företag, förslag, säkert.
+Rad: 22, 5g-nät: när, annat, genom.
+Rad: 26, säkerhetslag: företag, förslag, säkert.
+Rad: 26, 2017: i, att, och.
+Rad: 42, chefleden: heller, chef, helgen.
+Rad: 49, heltäckning: utveckling, anledning, utredning.
+Rad: 56, kinaforskare: snarare, norska, forskare.
+Rad: 58, helkinesiska: politiska, ekonomiska, europeiska.
+Rad: 83, icke-kinesiska: politiska, ekonomiska, europeiska.
+Rad: 85, avlyssnande: ryssland, liknande, avgörande.
+Rad: 86, teknikprodukter: minuter, tänker, perioden.
+Rad: 90, lysne: måste, se, läs.
