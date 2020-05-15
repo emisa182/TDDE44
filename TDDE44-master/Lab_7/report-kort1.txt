@@ -1,9 +1,9 @@
-Kontroll av 'kort1.txt' tog 0.85 sekunder.
+Kontroll av 'kort1.txt' tog 42.48 sekunder.
 
-Rad: 4, totalfÃ¶rstÃ¶relse: totalt, fÃ¶rsÃ¶ker, fÃ¶rstÃ¥s.
-Rad: 6, notre-dames: tredje, torsdagen, fredagen.
-Rad: 7, gallet: gÃ¤ller, valet, fallet.
-Rad: 9, huvudtornen: historia, barnen, situationen.
-Rad: 11, klocktornen: stockholms, klockan, oktober.
-Rad: 13, 400: i, att, och.
-Rad: 17, 1100-talskatedralen: konstaterar, tisdagen, torsdagen.
+Rad: 4, totalförstörelse: totalförstördes, totalförstörd, totalförstörts.
+Rad: 6, notre-dames: utredare, noterade, noterades.
+Rad: 7, gallet: fallet, galet, galler.
+Rad: 9, huvudtornen: huvudmannen, huvudmännen, huvudorten.
+Rad: 11, klocktornen: lockouten, klockren, klockorna.
+Rad: 13, 400: 4g, v60, s400.
+Rad: 17, 1100-talskatedralen: frälsarkatedralen, 90-talskrisen, 1990-talskrisen.

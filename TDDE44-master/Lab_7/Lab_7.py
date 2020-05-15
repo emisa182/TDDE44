@@ -21,7 +21,7 @@ class Readfile(object):
 
     def __init__(self, textpath):
         """Ta in samt modifiera textfil."""
-        with open(textpath, 'r') as file:
+        with open(textpath, 'r', encoding = "utf-8") as file:
             text = file.read().replace('.', "").lower()
             for ch in ['`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#',
                        '+', ',', '!', '$', '\"', ":", ";", "?"]:
@@ -123,7 +123,7 @@ if __name__ == "__main__":
     start_time = time()                 # Hur bör tidtagning tas?
     print("Antal filer att kontrollera: {}".format(len(sys.argv[2:])))
 
-    file = open(sys.argv[1])
+    file = open(sys.argv[1], encoding = "utf-8")
     freq_data = []
     for line in file:
         freq_data.append(line.rstrip().split("\t"))
