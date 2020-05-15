@@ -18,9 +18,9 @@ class Readfile(object):
 
     the_list -- Nästlad lista vars element är rader  med element av ord.
     """
+
     def __init__(self, textpath):
         """Läs in samt modifiera textfil."""
-
         with open(textpath, 'r') as file:
             text = file.read().replace('.', "").lower()
             for ch in ['`', '*', '_', '{', '}', '[', ']', '(', ')', '>', '#',
@@ -47,7 +47,6 @@ class Report(object):
 
     def __init__(self, freq_data, argsys2, start_time):
         """Ta tid på och utför hela rapportskrivningsprocessen, skriv ut."""
-
         self.warninglist = []
         self.text_file = Readfile(argsys2)
         print("Kontrollerar filen '{}'...".format(argsys2))
@@ -76,7 +75,6 @@ class Report(object):
 
     def write_report(self, textfile, run_time):
         """Skapa textfil och skriv över information."""
-
         with open("report-" + textfile, "w") as report:
             print("Rapport sparas som '{}'".format(str("report-" + textfile)))
             report.write("Kontroll av '{}' tog {} sekunder.\n\n"
@@ -92,17 +90,16 @@ class SpellingWarning(object):
 
     word_warning -- det eventuellt felstavade ordet.
     word_alternatives -- lista med förslag till rättstavning av det
-                        felstavade ordet"""
+                         felstavade ordet
+    """
 
     def __init__(self, word_warning, freqlist):
         """Definiera eventuellt felstavat ord och förslag på rättstavning."""
-
         self.word_warning = word_warning
         self.word_alternatives = self.funktion(freqlist)
 
     def funktion(self, freqlist):
         """Ta fram förslag på rättstavning."""
-
         word_suggestions = {}
         for word_alternative in freqlist[0:1000]:
             if len(word_suggestions) < 3:
